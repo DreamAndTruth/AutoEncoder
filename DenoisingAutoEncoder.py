@@ -30,7 +30,7 @@ class AdditiveGaussianNoiseAutoencoder(object):
         self.weights = network_weights
         self.x = tf.placeholder(tf.float32, [None, self.n_input])
         self.hidden = self.transfer(tf.add(
-            tf.matmul(self.x + self.scale*tf.random_normal(self.n_input),
+            tf.matmul(self.x + self.scale * tf.random_normal(self.n_input),
                       self.weights['w1']), self.weights['b1']))
         self.reconstruction = tf.add(tf.matmul(self.hidden,
                                                self.weights['w2']),
@@ -42,11 +42,42 @@ class AdditiveGaussianNoiseAutoencoder(object):
         self.sess.run(tf.global_variables_initializer())
 
     def _initialize_weights(self):
-        all_weights = {}
+        all_weights = dict()
         all_weights['w1'] = tf.Variable(
             xavier_init(self.n_input, self.n_hidden),
-            dtype=tf.float32)
+            dtype=tf.float32,
+            name='w1'
+        )
         all_weights['w2'] = tf.Variable(
             xavier_init(self.n_hidden, self.n_input),
-            dtype=tf.float32
+            dtype=tf.float32,
+            name='w2'
         )
+        all_weights['b1'] = tf.Variable(
+            tf.zeros([self.n_hidden]),
+            dtype=tf.float32,
+            name='b1'
+        )
+        all_weights['b2'] = tf.Variable(
+            tf.zeros([self.n_input]),
+            dtype=tf.float32,
+            name='b2'
+        )
+        return all_weights
+
+    def partial_fit(self, X):
+        """para:X:一个batch_size的数据。执行一步优化."""
+        cost, opt = self.sess.run(
+            (self.cost, self.optimizer),
+            feed_dict={self.x: X, self.scale: self.training_scale}
+        )
+        return cost
+
+    def calc_total_cost(self, X):
+        """test阶段进行cost计算，不进行参数优化."""
+        return self.sess.run(
+            self.cost,
+            feed_dict={self.x: X, self.scale: self.training_scale}
+        )
+
+    
