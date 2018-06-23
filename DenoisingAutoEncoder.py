@@ -1,24 +1,10 @@
-#%%
-# Copyright 2015 The TensorFlow Authors. All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# ==============================================================================
 import numpy as np
 import sklearn.preprocessing as prep
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
 
 def xavier_init(fan_in, fan_out, constant = 1):
+    """test."""
     low = -constant * np.sqrt(6.0 / (fan_in + fan_out))
     high = constant * np.sqrt(6.0 / (fan_in + fan_out))
     return tf.random_uniform((fan_in, fan_out),
@@ -90,10 +76,10 @@ class AdditiveGaussianNoiseAutoencoder(object):
 
     def getBiases(self):
         return self.sess.run(self.weights['b1'])
-        
-        
-        
-        
+
+
+
+
 mnist = input_data.read_data_sets('MNIST_data', one_hot = True)
 
 def standard_scale(X_train, X_test):
