@@ -51,6 +51,7 @@ class AdditiveGaussianNoiseAutoencoder(object):
 
     def _initialize_weights(self):
 <<<<<<< HEAD
+<<<<<<< HEAD
         all_weights = dict()
         all_weights['w1'] = tf.Variable(xavier_init(self.n_input, self.n_hidden))
         all_weights['b1'] = tf.Variable(tf.zeros([self.n_hidden], dtype = tf.float32))
@@ -136,6 +137,8 @@ for epoch in range(training_epochs):
 
 print("Total cost: " + str(autoencoder.calc_total_cost(X_test)))
 =======
+=======
+>>>>>>> parent of dac61d7... 6-23-22：38
         all_weights = {}
         all_weights['w1'] = tf.Variable(
             xavier_init(self.n_input, self.n_hidden),
@@ -144,4 +147,7 @@ print("Total cost: " + str(autoencoder.calc_total_cost(X_test)))
             xavier_init(self.n_hidden, self.n_input),
             dtype=tf.float32
         )
+<<<<<<< HEAD
+>>>>>>> parent of dac61d7... 6-23-22：38
+=======
 >>>>>>> parent of dac61d7... 6-23-22：38
