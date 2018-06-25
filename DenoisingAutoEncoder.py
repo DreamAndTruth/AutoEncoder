@@ -24,7 +24,6 @@ class AdditiveGaussianNoiseAutoencoder(object):
 
         # model
         self.x = tf.placeholder(tf.float32, [None, self.n_input])
-<<<<<<< HEAD
         self.hidden = self.transfer(tf.add(tf.matmul(self.x + scale * tf.random_normal((n_input,)),
                 self.weights['w1']),
                 self.weights['b1']))
@@ -35,22 +34,10 @@ class AdditiveGaussianNoiseAutoencoder(object):
         self.optimizer = optimizer.minimize(self.cost)
 
         init = tf.global_variables_initializer()
-=======
-        self.hidden = self.transfer(tf.add(
-            tf.matmul(self.x + self.scale*tf.random_normal(self.n_input),
-                      self.weights['w1']), self.weights['b1']))
-        self.reconstruction = tf.add(tf.matmul(self.hidden,
-                                               self.weights['w2']),
-                                     self.weights['b2'])
-        self.cost = tf.reduce_sum(tf.pow(tf.substruct(self.reconstruction,
-                                                      self.x), 2.0))
-        self.optimizer = optimizer(self.cost)
->>>>>>> parent of dac61d7... 6-23-22：38
         self.sess = tf.Session()
         self.sess.run(init)
 
     def _initialize_weights(self):
-<<<<<<< HEAD
 <<<<<<< HEAD
         all_weights = dict()
         all_weights['w1'] = tf.Variable(xavier_init(self.n_input, self.n_hidden))
@@ -136,9 +123,6 @@ for epoch in range(training_epochs):
         print("Epoch:", '%04d' % (epoch + 1), "cost=", "{:.9f}".format(avg_cost))
 
 print("Total cost: " + str(autoencoder.calc_total_cost(X_test)))
-=======
-=======
->>>>>>> parent of dac61d7... 6-23-22：38
         all_weights = {}
         all_weights['w1'] = tf.Variable(
             xavier_init(self.n_input, self.n_hidden),
@@ -147,7 +131,3 @@ print("Total cost: " + str(autoencoder.calc_total_cost(X_test)))
             xavier_init(self.n_hidden, self.n_input),
             dtype=tf.float32
         )
-<<<<<<< HEAD
->>>>>>> parent of dac61d7... 6-23-22：38
-=======
->>>>>>> parent of dac61d7... 6-23-22：38
